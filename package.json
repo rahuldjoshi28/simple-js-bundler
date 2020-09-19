@@ -26,5 +26,9 @@
     "hooks": {
       "pre-commit": "npm run prettify"
     }
+  },
+  "dependencies": {
+    "@babel/parser": "^7.11.5",
+    "@babel/traverse": "^7.11.5"
   }
 }
