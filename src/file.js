@@ -15,7 +15,11 @@ function getFilePath(...paths) {
 }
 
 function fileContents(...args) {
-  const { fullPath } = getFilePath(...args);
+  let fullPath = args[0];
+  if (args.length > 1) {
+    fullPath = getFilePath(...args).fullPath;
+  }
+
   return fs.readFileSync(fullPath).toString();
 }
 

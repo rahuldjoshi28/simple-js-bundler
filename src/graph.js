@@ -6,20 +6,23 @@ const traverse = require("@babel/traverse").default;
 
 const graph = {};
 
-function graphFrom(ast, basePath) {
+function transform(ast) {
+  const { code } = transformFromAst(ast, null, {
+    presets: ["env"],
+  });
+  return code;
+}
+
+function graphFrom(basePath, fullPath) {
+  const contents = fileContents(fullPath);
+  const ast = astFrom(contents);
+  graph[fullPath] = transform(ast);
+
   traverse(ast, {
     ImportDeclaration: (importNode) => {
       const sourcePath = importNode.node.source.value + ".js";
       const { fullPath, dirPath } = getFilePath(basePath, sourcePath);
-      const contents = fileContents(basePath, sourcePath);
-      const ast1 = astFrom(contents);
-
-      const { code } = transformFromAst(ast1, null, {
-        presets: ["env"],
-      });
-      graph[fullPath] = code;
-
-      graphFrom(ast1, dirPath);
+      graphFrom(dirPath, fullPath);
     },
   });
 
