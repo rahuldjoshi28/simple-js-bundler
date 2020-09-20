@@ -14,6 +14,8 @@ function transform(ast) {
 }
 
 function graphFrom(basePath, fullPath) {
+  if (graph[fullPath]) return;
+
   const contents = fileContents(fullPath);
   const ast = astFrom(contents);
   graph[fullPath] = { code: transform(ast), basePath };
