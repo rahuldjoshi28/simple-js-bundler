@@ -10,14 +10,16 @@ function bundle(graph, entryPath) {
   });
 
   return `
-   const _path = require("path");
+   const path = require("path");
    (function(modules){
      function require(key) {
         const { code, basePath } = modules[key];
-        function localRequire(path) {
-          const fullPath = _path.join(basePath, path + ".js");
+        
+        function localRequire(moduleName) {
+          const fullPath = path.join(basePath, moduleName + ".js");
           return require(fullPath);
         }
+        
         const module = {exports: {}}
         code(localRequire, module, module.exports);
         
