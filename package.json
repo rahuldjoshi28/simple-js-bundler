@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "node src/index.js",
+    "build": "node modules/bundler/index.js",
     "prettify": "lint-staged",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
