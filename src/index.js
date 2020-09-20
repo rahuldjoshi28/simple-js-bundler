@@ -11,6 +11,7 @@ const { fullPath: entryFilePath, dirPath } = getFilePath(__dirname, relativeBase
 
 const graph = graphFrom(dirPath, entryFilePath);
 
-console.log(graph);
 const bundledCode = bundle(graph, entryFilePath);
 console.log(bundledCode);
+
+fs.writeFileSync(getFilePath(__dirname, "../bundle/index.js").fullPath, bundledCode);

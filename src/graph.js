@@ -16,7 +16,7 @@ function transform(ast) {
 function graphFrom(basePath, fullPath) {
   const contents = fileContents(fullPath);
   const ast = astFrom(contents);
-  graph[fullPath] = transform(ast);
+  graph[fullPath] = { code: transform(ast), basePath };
 
   traverse(ast, {
     ImportDeclaration: (importNode) => {
